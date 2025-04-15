@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carte Pokémon SIO Sulivan</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(45deg, #020024 0%, #000 35%, #143573 100%);
+      font-family: 'Montserrat', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 1000px;
+      user-select: none;
+    }
+
+    .card-container {
+      width: 400px;
+      height: 555px;
+      transition: transform 0.1s ease;
+      transform-style: preserve-3d;
+    }
+
+    .card {
+      background: linear-gradient(45deg, #ff0000 50%, #fa7000 100%);
+      border: 5px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 15px;
+      width: 100%;
+      color: #000;
+      box-shadow: 8px 8px 24px -5px rgb(0, 0, 0);
+      transform-style: preserve-3d;
+    }
+
+    .card .head-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .card .head-substats {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card .hp {
+      color: #bd0000;
+      font-weight: bold;
+    }
+
+    .type {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .fond {
+      position: relative;
+      width: 100%;
+      height: auto;
+    }
+
+    .cover {
+      width: 100%;
+      display: block;
+      border-style: outset;
+    }
+
+    .flambino {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70%;
+      pointer-events: none;
+    }
+
+
+    .info-tp {
+      text-align: center;
+      background: #d1d1d1;
+      padding: 5px;
+      font-size: 12px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+    }
+
+    .attaques {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .attaques h3 {
+      margin-left: auto;
+      font-size: 1rem;
+    }
+
+    .desc-attaque {
+      font-size: 14px;
+    }
+
+    .desc-attaque a {
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+    }
+
+    hr {
+      height: 3px;
+      background: #d1d1d1;
+      border: none;
+      margin: 10px 0;
+    }
+
+    img {
+      pointer-events: none;
+    }
+
+    .point-fort {
+      display: flex;
+      justify-content: space-between;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .point-pos img {
+      margin-top: 5px;
+    }
+
+    .info-supplemantaires {
+      font-size: 9px;
+      padding: 10px;
+      border: 3px solid #d1d1d1;
+      border-radius: 5px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="card-container" id="cardContainer">
+    <div class="card">
+      <p>basic pokémon</p>
+      <div class="head-stats">
+        <h3>Flambino</h3>
+        <div class="head-substats">
+          <span class="hp">HP 40</span>
+          <img class="type" src="./assets/img/fire.jpg" alt="type feu">
+        </div>
+      </div>
+      <div class="fond">
+        <img class="flambino" src="./assets/img/flambino.png" alt="flambino">
+        <img class="cover" src="./assets/img/background-flambino.jpg" alt="background flambino">
+      </div>
+      <div class="info-tp">
+        <p>Taille: 0,3m / Poids: 4,5kg</p>
+      </div>
+      <div class="attaques">
+        <img class="type" src="./assets/img/fire.jpg" alt="attaque feu">
+        <div class="desc-attaque">
+          <p><a href="#">Super Roussi</a> : Lancez une pièce. Si face, le Pokémon actif de votre adversaire est maintenant brûlé.</p>
+        </div>
+        <h3>60</h3>
+      </div>
+      <hr>
+      <div class="point-fort">
+        <div class="point-pos">
+          <p>Faiblesse</p>
+          <img class="type" src="./assets/img/water.png" alt="eau">
+        </div>
+        <p>Résistance</p>
+        <div class="point-pos">
+          <p>Retrait</p>
+          <img class="type" src="./assets/img/retreat.webp" alt="retrait">
+        </div>
+      </div>
+      <div class="info-supplemantaires">
+        <p>Quand il est prêt à se battre, la partie qui surmonte son museau ainsi que les coussinets de ses pattes postérieures émettent de la chaleur.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const cardContainer = document.getElementById('cardContainer');
+
+    cardContainer.addEventListener('mousemove', (e) => {
+      const { width, height, left, top } = cardContainer.getBoundingClientRect();
+      const x = e.clientX - left;
+      const y = e.clientY - top;
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const rotateX = ((y - centerY) / centerY) * 10;
+      const rotateY = ((x - centerX) / centerX) * 10;
+
+      cardContainer.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    cardContainer.addEventListener('mouseleave', () => {
+      cardContainer.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    });
+  </script>
+</body>
+</html>
